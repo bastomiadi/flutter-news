@@ -42,75 +42,76 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              //categories
-              SizedBox(
-                height: 70,
-                child: FutureBuilder<List<Category>>(
-                    future: client.getCategory(),
-                    builder: (context, snapshot){
-                      if (snapshot.hasData) {
-                        List<Category> data = snapshot.data as List<
-                            Category>;
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              return CategoryTile(
-                                imageUrl: data[index].url,
-                                categoryName: data[index].title,
-                              );
-                            }
-                        );
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                //categories
+                SizedBox(
+                  height: 70,
+                  child: FutureBuilder<List<Category>>(
+                      future: client.getCategory(),
+                      builder: (context, snapshot){
+                        if (snapshot.hasData) {
+                          List<Category> data = snapshot.data as List<
+                              Category>;
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: ScrollPhysics(),
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return CategoryTile(
+                                  imageUrl: data[index].url,
+                                  categoryName: data[index].title,
+                                );
+                              }
+                          );
+                        }
+                        else if (snapshot.hasError) {
+                          print(snapshot.error.toString());
+                          return const Text('error');
+                        }
+                        return const CircularProgressIndicator();
                       }
-                      else if (snapshot.hasError) {
-                        print(snapshot.error.toString());
-                        return const Text('error');
-                      }
-                      return const CircularProgressIndicator();
-                    }
+                  ),
                 ),
-              ),
 
-              //blog
-              Container(
-                padding: const EdgeInsets.only(top: 16),
-                child: FutureBuilder<List<Articles>>(
-                    future: client.getArticle(),
-                    builder: (context, snapshot){
-                      if (snapshot.hasData) {
-                        List<Articles> data = snapshot.data as List<Articles>;
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              return NewsTile(
-                                imgUrl: data[index].urlToImage,
-                                title: data[index].title,
-                                description: data[index].description,
-                                content: data[index].content,
-                                posturl: data[index].url,
-                              );
-                            });
+                //blog
+                Container(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: FutureBuilder<List<Articles>>(
+                      future: client.getArticle(),
+                      builder: (context, snapshot){
+                        if (snapshot.hasData) {
+                          List<Articles> data = snapshot.data as List<Articles>;
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return NewsTile(
+                                  imgUrl: data[index].urlToImage,
+                                  title: data[index].title,
+                                  description: data[index].description,
+                                  content: data[index].content,
+                                  posturl: data[index].url,
+                                );
+                              });
+                        }
+                        else if (snapshot.hasError) {
+                          print(snapshot.error.toString());
+                          //return const Text('error');
+                          return Text(snapshot.error.toString());
+                        }
+                        return const CircularProgressIndicator();
                       }
-                      else if (snapshot.hasError) {
-                        print(snapshot.error.toString());
-                        //return const Text('error');
-                        return Text(snapshot.error.toString());
-                      }
-                      return const CircularProgressIndicator();
-                    }
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      )
-
     );
   }
 }
