@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
                           return ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              physics: ScrollPhysics(),
+                              physics: const ScrollPhysics(),
                               itemCount: data.length,
                               itemBuilder: (context, index) {
                                 return CategoryTile(
@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
                           List<Articles> data = snapshot.data as List<Articles>;
                           return ListView.builder(
                               shrinkWrap: true,
-                              physics: ScrollPhysics(),
+                              physics: const ScrollPhysics(),
                               itemCount: data.length,
                               itemBuilder: (context, index) {
                                 return NewsTile(

@@ -13,7 +13,7 @@ class ApiService {
         List<Articles> articles = body.map((dynamic item) => Articles.fromJson(item)).toList();
         return articles;
       } else {
-        throw Exception('Failed to load category');
+        throw Exception('Failed to load article');
       }
     }
 
