@@ -90,6 +90,7 @@ class _HomeState extends State<Home> {
                               physics: const ScrollPhysics(),
                               itemCount: data.length,
                               itemBuilder: (context, index) {
+
                                 return NewsTile(
                                   imgUrl: data[index].urlToImage,
                                   title: data[index].title,

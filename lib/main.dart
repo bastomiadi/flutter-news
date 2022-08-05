@@ -1,4 +1,4 @@
-import 'package:belajar/views/home.dart';
+import 'package:belajar/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home: const Home(),
+      home: const SplashScreen(),
     );
   }
 }
